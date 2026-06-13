@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AnythingHub – The Ultimate Web Directory</title>
+<meta name="description" content="Discover the best websites, AI tools, learning resources, games, utilities, and more. AnythingHub is your ultimate public directory of the web's finest.">
+<meta property="og:title" content="AnythingHub – The Ultimate Web Directory">
+<meta property="og:description" content="Explore thousands of curated websites, tools, and resources.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://anything.onweb.com">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+/* ===== THEME VARIABLES ===== */
+:root {
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.18);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.22);
+  --transition: 0.2s ease;
+  --transition-slow: 0.4s ease;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #111118;
+  --bg-card: #16161f;
+  --bg-card-hover: #1c1c28;
+  --bg-glass: rgba(22,22,31,0.7);
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.15);
+  --text-primary: #f0f0f5;
+  --text-secondary: #9090a8;
+  --text-muted: #5c5c75;
+  --accent: #7c6cfc;
+  --accent-glow: rgba(124,108,252,0.25);
+  --accent-2: #3ecfcf;
+  --accent-3: #f06aff;
+  --success: #22d3a0;
+  --danger: #f06060;
+  --gradient-hero: linear-gradient(135deg, #0a0a0f 0%, #0e0e1a 40%, #120c1e 100%);
+  --gradient-card: linear-gradient(145deg, #16161f, #1a1a28);
+  --gradient-accent: linear-gradient(135deg, #7c6cfc, #3ecfcf);
+  --gradient-text: linear-gradient(135deg, #a89bfd, #3ecfcf);
+  --tag-bg: rgba(124,108,252,0.12);
+  --tag-color: #a89bfd;
+  --input-bg: rgba(255,255,255,0.05);
+  --scrollbar-bg: #111118;
+  --scrollbar-thumb: #2a2a3f;
+}
+
+[data-theme="light"] {
+  --bg-primary: #f5f5fa;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8f8ff;
+  --bg-glass: rgba(255,255,255,0.75);
+  --border: rgba(0,0,0,0.08);
+  --border-hover: rgba(0,0,0,0.16);
+  --text-primary: #12121e;
+  --text-secondary: #4a4a65;
+  --text-muted: #9090a8;
+  --accent: #4f46e5;
+  --accent-glow: rgba(79,70,229,0.15);
+  --accent-2: #0891b2;
+  --accent-3: #9333ea;
+  --success: #059669;
+  --danger: #dc2626;
+  --gradient-hero: linear-gradient(135deg, #f0f0ff 0%, #e8e8ff 50%, #f5f0ff 100%);
+  --gradient-card: linear-gradient(145deg, #ffffff, #f8f8ff);
+  --gradient-accent: linear-gradient(135deg, #4f46e5, #0891b2);
+  --gradient-text: linear-gradient(135deg, #4f46e5, #0891b2);
+  --tag-bg: rgba(79,70,229,0.08);
+  --tag-color: #4f46e5;
+  --input-bg: rgba(0,0,0,0.04);
+  --scrollbar-bg: #f5f5fa;
+  --scrollbar-thumb: #d0d0e0;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-bg); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+
+/* ===== BODY ===== */
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background var(--transition-slow), color var(--transition-slow);
+}
+
+/* ===== ANIMATED BG ORBS (dark only) ===== */
+.bg-orbs {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+}
+.bg-orb {
+  position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0;
+  animation: orbFloat 12s ease-in-out infinite;
+}
+[data-theme="dark"] .bg-orb { opacity: 0.06; }
+.bg-orb:nth-child(1) { width: 500px; height: 500px; background: #7c6cfc; top: -200px; left: -100px; animation-delay: 0s; }
+.bg-orb:nth-child(2) { width: 400px; height: 400px; background: #3ecfcf; bottom: 20%; right: -150px; animation-delay: -4s; }
+.bg-orb:nth-child(3) { width: 300px; height: 300px; background: #f06aff; bottom: -100px; left: 30%; animation-delay: -8s; }
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.05); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+/* ===== NAV ===== */
+.nav {
+  position: sticky; top: 0; z-index: 1000;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  transition: background var(--transition-slow);
+}
+.nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  height: 64px;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.35rem; font-weight: 700;
+  background: var(--gradient-text);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  text-decoration: none; flex-shrink: 0; letter-spacing: -0.5px;
+}
+.nav-logo span { opacity: 0.6; font-weight: 400; }
+.nav-links {
+  display: flex; gap: 2px; list-style: none;
+  margin-left: 16px; overflow-x: auto; scrollbar-width: none; flex-shrink: 0;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a {
+  color: var(--text-secondary); text-decoration: none;
+  padding: 6px 12px; border-radius: var(--radius-sm);
+  font-size: 0.875rem; font-weight: 500; white-space: nowrap;
+  transition: all var(--transition);
+}
+.nav-links a:hover, .nav-links a.active {
+  background: var(--accent-glow); color: var(--accent);
+}
+.nav-spacer { flex: 1; }
+.nav-search-mini {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--input-bg); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 7px 14px;
+  min-width: 200px; max-width: 280px;
+  transition: border-color var(--transition);
+}
+.nav-search-mini:focus-within { border-color: var(--accent); }
+.nav-search-mini input {
+  background: none; border: none; outline: none;
+  color: var(--text-primary); font-size: 0.875rem; width: 100%;
+  font-family: var(--font-body);
+}
+.nav-search-mini input::placeholder { color: var(--text-muted); }
+.nav-search-mini .search-icon { color: var(--text-muted); flex-shrink: 0; }
+.btn-theme {
+  background: var(--input-bg); border: 1px solid var(--border);
+  color: var(--text-secondary); cursor: pointer;
+  width: 38px; height: 38px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; transition: all var(--transition); flex-shrink: 0;
+}
+.btn-theme:hover { border-color: var(--accent); color: var(--accent); }
+.btn-menu {
+  display: none; background: none; border: none; color: var(--text-primary);
+  cursor: pointer; font-size: 1.4rem; padding: 4px;
+}
+
+/* ===== MOBILE NAV ===== */
+.mobile-nav {
+  display: none; position: fixed; inset: 0; z-index: 999;
+  background: var(--bg-secondary);
+  flex-direction: column; padding: 80px 24px 32px;
+  gap: 4px; overflow-y: auto;
+  transform: translateX(100%); transition: transform var(--transition-slow);
+}
+.mobile-nav.open { transform: translateX(0); }
+.mobile-nav a {
+  color: var(--text-primary); text-decoration: none;
+  padding: 14px 16px; border-radius: var(--radius-md);
+  font-size: 1rem; font-weight: 500;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+.mobile-nav a:hover { background: var(--bg-card); }
+
+/* ===== MAIN ===== */
+main { position: relative; z-index: 1; }
+
+/* ===== HERO ===== */
+.hero {
+  background: var(--gradient-hero);
+  padding: 80px 24px 60px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, var(--accent-glow), transparent);
+  pointer-events: none;
+}
+.hero-inner { max-width: 800px; margin: 0 auto; position: relative; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--tag-bg); color: var(--tag-color);
+  border: 1px solid rgba(124,108,252,0.2);
+  padding: 6px 16px; border-radius: 100px;
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px;
+  text-transform: uppercase; margin-bottom: 24px;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 800; line-height: 1.1;
+  letter-spacing: -1.5px; margin-bottom: 16px;
+}
+.hero-title .gradient-text {
+  background: var(--gradient-text);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  color: var(--text-secondary); font-size: 1.1rem;
+  margin-bottom: 36px; max-width: 520px; margin-left: auto; margin-right: auto;
+}
+.hero-search {
+  display: flex; gap: 0; max-width: 560px; margin: 0 auto 36px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border); border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg), 0 0 0 4px var(--accent-glow);
+  overflow: hidden; transition: border-color var(--transition);
+}
+.hero-search:focus-within { border-color: var(--accent); }
+.hero-search input {
+  flex: 1; background: none; border: none; outline: none;
+  padding: 16px 20px; font-size: 1rem;
+  color: var(--text-primary); font-family: var(--font-body);
+}
+.hero-search input::placeholder { color: var(--text-muted); }
+.hero-search-btn {
+  background: var(--gradient-accent); border: none; cursor: pointer;
+  padding: 0 24px; color: white; font-weight: 600; font-size: 0.9rem;
+  letter-spacing: 0.3px; display: flex; align-items: center; gap: 8px;
+  transition: opacity var(--transition);
+}
+.hero-search-btn:hover { opacity: 0.9; }
+.hero-stats {
+  display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;
+}
+.hero-stat {
+  background: var(--bg-glass); border: 1px solid var(--border);
+  backdrop-filter: blur(12px); border-radius: var(--radius-md);
+  padding: 12px 20px; text-align: center;
+}
+.hero-stat-num {
+  font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
+  background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+/* ===== QUICK ACCESS PILLS ===== */
+.quick-access {
+  display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+}
+.qa-pill {
+  background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--text-secondary); padding: 8px 18px; border-radius: 100px;
+  font-size: 0.85rem; font-weight: 500; cursor: pointer;
+  transition: all var(--transition); text-decoration: none;
+  display: flex; align-items: center; gap: 6px;
+}
+.qa-pill:hover {
+  border-color: var(--accent); color: var(--accent);
+  background: var(--accent-glow); transform: translateY(-1px);
+}
+.qa-pill.active { border-color: var(--accent); background: var(--accent-glow); color: var(--accent); }
+
+/* ===== SECTION ===== */
+.section { padding: 48px 24px; max-width: 1280px; margin: 0 auto; }
+.section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; gap: 16px;
+}
+.section-title {
+  font-family: var(--font-display); font-size: 1.4rem;
+  font-weight: 700; letter-spacing: -0.3px;
+}
+.section-title span { color: var(--text-muted); font-weight: 400; font-size: 1rem; margin-left: 8px; }
+.section-link {
+  color: var(--accent); text-decoration: none; font-size: 0.875rem;
+  font-weight: 500; white-space: nowrap;
+  display: flex; align-items: center; gap: 4px;
+}
+.section-link:hover { text-decoration: underline; }
+.section-divider {
+  border: none; border-top: 1px solid var(--border); margin: 0 24px;
+}
+
+/* ===== GRID ===== */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 16px;
+}
+
+/* ===== WEBSITE CARD ===== */
+.card {
+  background: var(--gradient-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 20px;
+  transition: all var(--transition); cursor: pointer;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; gap: 12px;
+  text-decoration: none; color: inherit;
+}
+.card::before {
+  content: ''; position: absolute; inset: 0; border-radius: var(--radius-lg);
+  background: var(--gradient-accent); opacity: 0;
+  transition: opacity var(--transition); pointer-events: none;
+}
+.card:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.card:hover::before { opacity: 0.03; }
+.card-header { display: flex; align-items: flex-start; gap: 12px; }
+.card-icon {
+  width: 42px; height: 42px; border-radius: var(--radius-sm);
+  background: var(--accent-glow); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0; overflow: hidden;
+}
+.card-icon img { width: 28px; height: 28px; object-fit: contain; border-radius: 4px; }
+.card-meta { flex: 1; min-width: 0; }
+.card-name {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+.card-category {
+  font-size: 0.75rem; color: var(--text-muted); font-weight: 500;
+}
+.card-desc {
+  color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: auto; gap: 8px;
+}
+.card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag {
+  background: var(--tag-bg); color: var(--tag-color);
+  padding: 3px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 500;
+  white-space: nowrap;
+}
+.card-rating {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 0.8rem; font-weight: 600; color: #f59e0b; flex-shrink: 0;
+}
+.card-actions {
+  display: flex; gap: 6px; opacity: 0; transition: opacity var(--transition);
+}
+.card:hover .card-actions { opacity: 1; }
+.card-btn {
+  background: var(--input-bg); border: 1px solid var(--border);
+  color: var(--text-secondary); cursor: pointer; width: 30px; height: 30px;
+  border-radius: var(--radius-sm); display: flex; align-items: center;
+  justify-content: center; font-size: 0.85rem; transition: all var(--transition);
+}
+.card-btn:hover { border-color: var(--accent); color: var(--accent); }
+.card-featured-badge {
+  position: absolute; top: 12px; right: 12px;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: white; padding: 3px 10px; border-radius: 100px;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+}
+
+/* ===== FEATURED CARD (larger) ===== */
+.card-featured {
+  background: var(--gradient-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl); padding: 28px;
+  transition: all var(--transition);
+  position: relative; overflow: hidden;
+  text-decoration: none; color: inherit;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.card-featured::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--gradient-accent);
+}
+.card-featured:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.card-featured .card-icon { width: 52px; height: 52px; font-size: 1.4rem; }
+.card-featured .card-name { font-size: 1.1rem; }
+.card-featured .card-desc { -webkit-line-clamp: 3; }
+
+/* ===== CATEGORIES GRID ===== */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+.cat-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 20px 16px;
+  text-align: center; cursor: pointer;
+  transition: all var(--transition); text-decoration: none; color: inherit;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.cat-card:hover {
+  border-color: var(--accent); background: var(--accent-glow);
+  transform: translateY(-2px); box-shadow: var(--shadow-md);
+}
+.cat-icon { font-size: 1.8rem; }
+.cat-name { font-family: var(--font-display); font-weight: 600; font-size: 0.875rem; }
+.cat-count { font-size: 0.75rem; color: var(--text-muted); }
+
+/* ===== RANDOM BTN ===== */
+.random-section {
+  padding: 32px 24px;
+  text-align: center;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.btn-random {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--gradient-accent); color: white; border: none;
+  padding: 16px 36px; border-radius: 100px; font-size: 1rem;
+  font-weight: 700; cursor: pointer; font-family: var(--font-display);
+  box-shadow: 0 4px 24px var(--accent-glow);
+  transition: all var(--transition); letter-spacing: 0.3px;
+}
+.btn-random:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 32px var(--accent-glow); }
+.btn-random .dice { font-size: 1.3rem; animation: spin 3s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center; padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); width: 100%; max-width: 600px;
+  max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+  animation: modalIn 0.25s ease;
+}
+@keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: none; } }
+.modal-header {
+  display: flex; align-items: center; gap: 16px;
+  padding: 28px 28px 20px; border-bottom: 1px solid var(--border);
+}
+.modal-icon {
+  width: 60px; height: 60px; border-radius: var(--radius-md);
+  background: var(--accent-glow); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; flex-shrink: 0; overflow: hidden;
+}
+.modal-icon img { width: 40px; height: 40px; object-fit: contain; }
+.modal-title-block { flex: 1; }
+.modal-name {
+  font-family: var(--font-display); font-size: 1.4rem;
+  font-weight: 700; margin-bottom: 4px;
+}
+.modal-cat { color: var(--text-muted); font-size: 0.875rem; }
+.modal-close {
+  background: var(--input-bg); border: 1px solid var(--border);
+  color: var(--text-muted); cursor: pointer; width: 36px; height: 36px;
+  border-radius: var(--radius-sm); font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition); flex-shrink: 0;
+}
+.modal-close:hover { border-color: var(--danger); color: var(--danger); }
+.modal-body { padding: 24px 28px; display: flex; flex-direction: column; gap: 20px; }
+.modal-desc { color: var(--text-secondary); line-height: 1.7; }
+.modal-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.modal-meta {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.modal-meta-item {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 12px 16px;
+}
+.modal-meta-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; }
+.modal-meta-value { font-weight: 600; font-size: 0.9rem; }
+.modal-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gradient-accent); color: white; border: none;
+  padding: 12px 24px; border-radius: var(--radius-md); font-size: 0.9rem;
+  font-weight: 600; cursor: pointer; text-decoration: none;
+  transition: all var(--transition); font-family: var(--font-body);
+}
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--input-bg); color: var(--text-primary);
+  border: 1px solid var(--border); padding: 12px 24px;
+  border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 600;
+  cursor: pointer; transition: all var(--transition); font-family: var(--font-body);
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.modal-rating-row {
+  display: flex; align-items: center; gap: 8px;
+}
+.stars { display: flex; gap: 3px; }
+.star { font-size: 1.1rem; cursor: pointer; transition: transform var(--transition); }
+.star:hover { transform: scale(1.2); }
+.star.filled { color: #f59e0b; }
+.star.empty { color: var(--text-muted); }
+
+/* ===== PAGE VIEWS ===== */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ===== SEARCH PAGE ===== */
+.search-page { padding: 32px 24px; max-width: 1280px; margin: 0 auto; }
+.search-header { margin-bottom: 28px; }
+.search-bar-large {
+  display: flex; gap: 12px; align-items: center; margin-bottom: 20px;
+}
+.search-bar-large input {
+  flex: 1; background: var(--bg-card); border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg); padding: 14px 20px;
+  color: var(--text-primary); font-size: 1rem; outline: none;
+  font-family: var(--font-body); transition: border-color var(--transition);
+}
+.search-bar-large input:focus { border-color: var(--accent); }
+.filter-row {
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+}
+.filter-chip {
+  background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--text-secondary); padding: 6px 16px; border-radius: 100px;
+  font-size: 0.825rem; font-weight: 500; cursor: pointer;
+  transition: all var(--transition);
+}
+.filter-chip:hover, .filter-chip.active {
+  background: var(--accent-glow); border-color: var(--accent); color: var(--accent);
+}
+.search-results-count {
+  color: var(--text-muted); font-size: 0.875rem; margin-bottom: 20px;
+}
+.no-results {
+  text-align: center; padding: 60px 20px; color: var(--text-muted);
+}
+.no-results-icon { font-size: 3rem; margin-bottom: 16px; }
+.no-results h3 { font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px; }
+
+/* ===== CATEGORY PAGE ===== */
+.cat-page-header {
+  padding: 48px 24px 32px; background: var(--gradient-hero);
+  border-bottom: 1px solid var(--border);
+}
+.cat-page-header-inner { max-width: 1280px; margin: 0 auto; }
+.cat-page-icon { font-size: 3rem; margin-bottom: 12px; }
+.cat-page-title {
+  font-family: var(--font-display); font-size: 2rem; font-weight: 800;
+  letter-spacing: -0.5px; margin-bottom: 8px;
+}
+.cat-page-desc { color: var(--text-secondary); }
+
+/* ===== ABOUT PAGE ===== */
+.page-hero {
+  padding: 60px 24px 40px;
+  background: var(--gradient-hero);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+.page-hero-title {
+  font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800; letter-spacing: -0.8px; margin-bottom: 16px;
+}
+.page-hero-sub { color: var(--text-secondary); max-width: 520px; margin: 0 auto; }
+.prose-section { padding: 48px 24px; max-width: 800px; margin: 0 auto; }
+.prose-section h2 {
+  font-family: var(--font-display); font-size: 1.4rem; font-weight: 700;
+  margin-bottom: 12px; margin-top: 32px;
+}
+.prose-section h2:first-child { margin-top: 0; }
+.prose-section p { color: var(--text-secondary); margin-bottom: 16px; line-height: 1.75; }
+.prose-section ul { padding-left: 20px; color: var(--text-secondary); margin-bottom: 16px; }
+.prose-section li { margin-bottom: 8px; line-height: 1.7; }
+.prose-section a { color: var(--accent); }
+
+/* ===== CONTACT PAGE ===== */
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  max-width: 900px; margin: 0 auto; padding: 48px 24px;
+}
+.contact-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); padding: 32px;
+}
+.contact-card h3 {
+  font-family: var(--font-display); font-size: 1.2rem; font-weight: 700;
+  margin-bottom: 8px;
+}
+.contact-card p { color: var(--text-secondary); margin-bottom: 20px; font-size: 0.9rem; }
+.contact-email {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent-glow); border: 1px solid rgba(124,108,252,0.3);
+  color: var(--accent); padding: 12px 20px; border-radius: var(--radius-md);
+  text-decoration: none; font-weight: 600; font-size: 0.9rem;
+  transition: all var(--transition);
+}
+.contact-email:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.form-label { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
+.form-input {
+  background: var(--input-bg); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 10px 14px;
+  color: var(--text-primary); font-size: 0.9rem; outline: none;
+  font-family: var(--font-body); transition: border-color var(--transition);
+}
+.form-input:focus { border-color: var(--accent); }
+.form-input::placeholder { color: var(--text-muted); }
+textarea.form-input { resize: vertical; min-height: 100px; }
+
+/* ===== SUBMIT PAGE ===== */
+.submit-form {
+  max-width: 640px; margin: 0 auto; padding: 48px 24px;
+}
+.submit-form h2 {
+  font-family: var(--font-display); font-size: 1.6rem; font-weight: 700;
+  margin-bottom: 8px;
+}
+.submit-form p { color: var(--text-secondary); margin-bottom: 32px; }
+
+/* ===== FAVORITES PAGE ===== */
+.favorites-empty {
+  text-align: center; padding: 80px 24px; color: var(--text-muted);
+}
+.favorites-empty-icon { font-size: 3rem; margin-bottom: 16px; }
+.favorites-empty h3 { font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px; }
+
+/* ===== TRENDING BADGE ===== */
+.trending-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.15));
+  border: 1px solid rgba(239,68,68,0.25);
+  color: #f59e0b; padding: 3px 10px; border-radius: 100px;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px;
+}
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 14px 20px;
+  box-shadow: var(--shadow-lg); font-size: 0.875rem; font-weight: 500;
+  display: flex; align-items: center; gap: 10px;
+  transform: translateY(80px); opacity: 0;
+  transition: all 0.3s ease; max-width: 300px;
+  border-left: 3px solid var(--accent);
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--bg-secondary); border-top: 1px solid var(--border);
+  padding: 48px 24px 24px;
+}
+.footer-inner { max-width: 1280px; margin: 0 auto; }
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+  margin-bottom: 40px;
+}
+.footer-brand p { color: var(--text-muted); font-size: 0.875rem; margin-top: 12px; max-width: 260px; }
+.footer-col h4 { font-family: var(--font-display); font-weight: 600; margin-bottom: 16px; font-size: 0.9rem; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; transition: color var(--transition); }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom {
+  border-top: 1px solid var(--border); padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.footer-bottom p { color: var(--text-muted); font-size: 0.8rem; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .nav-search-mini { display: none; }
+  .btn-menu { display: flex; }
+  .mobile-nav { display: flex; }
+  .hero { padding: 50px 16px 40px; }
+  .hero-stat { padding: 10px 14px; }
+  .section { padding: 32px 16px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 24px; }
+  .footer-brand { grid-column: auto; }
+  .modal-meta { grid-template-columns: 1fr; }
+  .modal-header { flex-wrap: wrap; }
+  .cat-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+}
+@media (max-width: 400px) {
+  .hero-title { font-size: 1.8rem; }
+  .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ===== LOADING ===== */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+/* ===== ADMIN ===== */
+.admin-bar {
+  display: none; background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+}
+.admin-bar.visible { display: flex; align-items: center; gap: 12px; }
+.admin-badge {
+  background: linear-gradient(135deg, #7c6cfc, #f06aff);
+  color: white; padding: 4px 12px; border-radius: 100px;
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px;
+}
+.admin-actions { display: flex; gap: 8px; margin-left: auto; }
+.admin-btn {
+  background: var(--input-bg); border: 1px solid var(--border);
+  color: var(--text-secondary); padding: 6px 14px; border-radius: var(--radius-sm);
+  cursor: pointer; font-size: 0.8rem; font-weight: 500;
+  transition: all var(--transition);
+}
+.admin-btn:hover { border-color: var(--accent); color: var(--accent); }
+.admin-btn.danger:hover { border-color: var(--danger); color: var(--danger); }
+
+/* ===== MISC ===== */
+.badge-new {
+  background: linear-gradient(135deg, #22d3a0, #3ecfcf);
+  color: #0a0a0f; padding: 2px 8px; border-radius: 100px;
+  font-size: 0.65rem; font-weight: 800; letter-spacing: 0.5px;
+  text-transform: uppercase; flex-shrink: 0;
+}
+.btn-fav {
+  background: none; border: none; cursor: pointer; font-size: 1.1rem;
+  padding: 2px; transition: transform var(--transition);
+}
+.btn-fav:hover { transform: scale(1.3); }
+select.form-input { appearance: none; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<!-- BG ORBS -->
+<div class="bg-orbs" aria-hidden="true">
+  <div class="bg-orb"></div>
+  <div class="bg-orb"></div>
+  <div class="bg-orb"></div>
+</div>
+
+<!-- ADMIN BAR -->
+<div class="admin-bar" id="adminBar">
+  <span class="admin-badge">⚡ ADMIN</span>
+  <span style="font-size:0.85rem;color:var(--text-secondary)">Admin Mode Active</span>
+  <div class="admin-actions">
+    <button class="admin-btn" onclick="showPage('submit')">+ Add Website</button>
+    <button class="admin-btn danger" onclick="logoutAdmin()">Logout</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" onclick="showPage('home')">Anything<span>Hub</span></a>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
+      <li><a href="#" onclick="showPage('categories')" id="nav-categories">Categories</a></li>
+      <li><a href="#" onclick="showPage('search')" id="nav-search">Search</a></li>
+      <li><a href="#" onclick="showPage('featured')" id="nav-featured">Featured</a></li>
+      <li><a href="#" onclick="showPage('trending')" id="nav-trending">Trending</a></li>
+      <li><a href="#" onclick="showPage('recent')" id="nav-recent">Recent</a></li>
+      <li><a href="#" onclick="showPage('favorites')" id="nav-favorites">Favorites ♥</a></li>
+      <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
+      <li><a href="#" onclick="showPage('submit')" id="nav-submit">Submit</a></li>
+      <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+    </ul>
+    <div class="nav-spacer"></div>
+    <div class="nav-search-mini" role="search">
+      <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="search" placeholder="Quick search…" id="navSearchInput" aria-label="Quick search" oninput="quickSearch(this.value)" onkeydown="if(event.key==='Enter')goSearch()">
+    </div>
+    <button class="btn-theme" id="themeToggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle dark/light mode">🌙</button>
+    <button class="btn-menu" id="menuBtn" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Mobile navigation">
+  <a href="#" onclick="showPage('home');toggleMenu()">🏠 Home</a>
+  <a href="#" onclick="showPage('categories');toggleMenu()">📂 Categories</a>
+  <a href="#" onclick="showPage('search');toggleMenu()">🔍 Search</a>
+  <a href="#" onclick="showPage('featured');toggleMenu()">⭐ Featured</a>
+  <a href="#" onclick="showPage('trending');toggleMenu()">🔥 Trending</a>
+  <a href="#" onclick="showPage('recent');toggleMenu()">🆕 Recently Added</a>
+  <a href="#" onclick="showPage('favorites');toggleMenu()">♥ Favorites</a>
+  <a href="#" onclick="showPage('about');toggleMenu()">ℹ️ About</a>
+  <a href="#" onclick="showPage('submit');toggleMenu()">📤 Submit Website</a>
+  <a href="#" onclick="showPage('contact');toggleMenu()">✉️ Contact</a>
+  <a href="#" onclick="showPage('privacy');toggleMenu()">🔒 Privacy Policy</a>
+  <a href="#" onclick="showPage('terms');toggleMenu()">📄 Terms</a>
+</div>
+
+<!-- MAIN -->
+<main id="mainContent">
+
+<!-- ===== HOME PAGE ===== -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">✦ The Ultimate Web Directory</div>
+      <h1 class="hero-title" id="heroTitle">
+        Discover the <span class="gradient-text">Best of the Web</span>
+      </h1>
+      <p class="hero-sub">Curated AI tools, learning platforms, games, utilities, research tools, and everything in between — all in one place.</p>
+      <div class="hero-search" role="search">
+        <input type="search" id="heroSearch" placeholder="Search websites, tools, categories…" aria-label="Search websites" oninput="quickSearch(this.value)" onkeydown="if(event.key==='Enter')goSearch()">
+        <button class="hero-search-btn" onclick="goSearch()" aria-label="Search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Search
+        </button>
+      </div>
+      <div class="hero-stats" role="region" aria-label="Statistics">
+        <div class="hero-stat">
+          <div class="hero-stat-num" id="statTotal">72</div>
+          <div class="hero-stat-label">Websites</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">14</div>
+          <div class="hero-stat-label">Categories</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num" id="statFeatured">—</div>
+          <div class="hero-stat-label">Featured</div>
+        </div>
+      </div>
+      <div class="quick-access" id="quickAccessPills" role="navigation" aria-label="Quick category access"></div>
+    </div>
+  </section>
+
+  <!-- RANDOM BTN -->
+  <div class="random-section">
+    <button class="btn-random" onclick="showRandom()" aria-label="Show a random website">
+      <span class="dice">🎲</span> Show Me Something Cool
+    </button>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">⭐ Featured <span id="featCount"></span></h2>
+      <a href="#" class="section-link" onclick="showPage('featured')">View all →</a>
+    </div>
+    <div class="grid-3" id="featuredGrid"></div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- TRENDING -->
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">🔥 Trending</h2>
+      <a href="#" class="section-link" onclick="showPage('trending')">View all →</a>
+    </div>
+    <div class="grid-4" id="trendingGrid"></div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- CATEGORIES -->
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">📂 Browse Categories</h2>
+      <a href="#" class="section-link" onclick="showPage('categories')">All categories →</a>
+    </div>
+    <div class="cat-grid" id="catGrid"></div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- RECENTLY ADDED -->
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">🆕 Recently Added</h2>
+      <a href="#" class="section-link" onclick="showPage('recent')">View all →</a>
+    </div>
+    <div class="grid-3" id="recentGrid"></div>
+  </div>
+
+</div><!-- /home -->
+
+<!-- ===== CATEGORIES PAGE ===== -->
+<div class="page" id="page-categories">
+  <div style="background:var(--gradient-hero);padding:48px 24px 32px;border-bottom:1px solid var(--border)">
+    <div style="max-width:1280px;margin:0 auto">
+      <h1 style="font-family:var(--font-display);font-size:2rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:8px">📂 All Categories</h1>
+      <p style="color:var(--text-secondary)">Explore websites organized by category</p>
+    </div>
+  </div>
+  <div class="section" id="allCatsSection"></div>
+</div>
+
+<!-- ===== CATEGORY DETAIL PAGE ===== -->
+<div class="page" id="page-category-detail">
+  <div class="cat-page-header">
+    <div class="cat-page-header-inner">
+      <div class="cat-page-icon" id="catDetailIcon"></div>
+      <h1 class="cat-page-title" id="catDetailName"></h1>
+      <p class="cat-page-desc" id="catDetailDesc"></p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="grid-3" id="catDetailGrid"></div>
+  </div>
+</div>
+
+<!-- ===== SEARCH PAGE ===== -->
+<div class="page" id="page-search">
+  <div class="search-page">
+    <div class="search-header">
+      <h1 style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;margin-bottom:20px">🔍 Search</h1>
+      <div class="search-bar-large">
+        <input type="search" id="mainSearch" placeholder="Search by name, description, tags…" aria-label="Search" oninput="doSearch(this.value)">
+      </div>
+      <div class="filter-row" id="filterRow"></div>
+    </div>
+    <p class="search-results-count" id="searchCount"></p>
+    <div class="grid-3" id="searchGrid"></div>
+    <div class="no-results" id="noResults" style="display:none">
+      <div class="no-results-icon">🔍</div>
+      <h3>No results found</h3>
+      <p>Try a different keyword or browse by category.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FEATURED PAGE ===== -->
+<div class="page" id="page-featured">
+  <div style="background:var(--gradient-hero);padding:48px 24px 32px;border-bottom:1px solid var(--border)">
+    <div style="max-width:1280px;margin:0 auto">
+      <h1 style="font-family:var(--font-display);font-size:2rem;font-weight:800;margin-bottom:8px">⭐ Featured Websites</h1>
+      <p style="color:var(--text-secondary)">Hand-picked standout tools and resources</p>
+    </div>
+  </div>
+  <div class="section"><div class="grid-3" id="featuredPageGrid"></div></div>
+</div>
+
+<!-- ===== TRENDING PAGE ===== -->
+<div class="page" id="page-trending">
+  <div style="background:var(--gradient-hero);padding:48px 24px 32px;border-bottom:1px solid var(--border)">
+    <div style="max-width:1280px;margin:0 auto">
+      <h1 style="font-family:var(--font-display);font-size:2rem;font-weight:800;margin-bottom:8px">🔥 Trending Now</h1>
+      <p style="color:var(--text-secondary)">Most popular websites this week</p>
+    </div>
+  </div>
+  <div class="section"><div class="grid-4" id="trendingPageGrid"></div></div>
+</div>
+
+<!-- ===== RECENT PAGE ===== -->
+<div class="page" id="page-recent">
+  <div style="background:var(--gradient-hero);padding:48px 24px 32px;border-bottom:1px solid var(--border)">
+    <div style="max-width:1280px;margin:0 auto">
+      <h1 style="font-family:var(--font-display);font-size:2rem;font-weight:800;margin-bottom:8px">🆕 Recently Added</h1>
+      <p style="color:var(--text-secondary)">Latest additions to the directory</p>
+    </div>
+  </div>
+  <div class="section"><div class="grid-3" id="recentPageGrid"></div></div>
+</div>
+
+<!-- ===== FAVORITES PAGE ===== -->
+<div class="page" id="page-favorites">
+  <div style="background:var(--gradient-hero);padding:48px 24px 32px;border-bottom:1px solid var(--border)">
+    <div style="max-width:1280px;margin:0 auto">
+      <h1 style="font-family:var(--font-display);font-size:2rem;font-weight:800;margin-bottom:8px">♥ Your Favorites</h1>
+      <p style="color:var(--text-secondary)">Websites you've saved — stored in your browser</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="grid-3" id="favoritesGrid"></div>
+    <div class="favorites-empty" id="favEmpty" style="display:none">
+      <div class="favorites-empty-icon">♡</div>
+      <h3>No favorites yet</h3>
+      <p>Click the ♥ button on any website card to save it here.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ABOUT PAGE ===== -->
+<div class="page" id="page-about">
+  <div class="page-hero">
+    <h1 class="page-hero-title">About <span style="background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent">AnythingHub</span></h1>
+    <p class="page-hero-sub">The ultimate public directory for discovering the best websites, tools, and resources on the internet.</p>
+  </div>
+  <div class="prose-section">
+    <h2>What is AnythingHub?</h2>
+    <p>AnythingHub is a curated, community-driven directory of the web's most useful, interesting, and powerful websites. From AI tools and developer utilities to learning platforms and creative resources — we've catalogued them all.</p>
+    <p>Think of us as a combination of Product Hunt, FMHY, and a modern bookmark manager, rebuilt from the ground up for discoverability and ease of use.</p>
+    <h2>Our Mission</h2>
+    <p>The internet is vast. Finding the right tool at the right time is hard. AnythingHub exists to cut through the noise and surface genuinely useful websites across every category of human interest.</p>
+    <h2>Categories We Cover</h2>
+    <ul>
+      <li>🤖 AI & Creativity — AI tools, generators, and creative platforms</li>
+      <li>📚 Learning & Education — Courses, tutorials, and educational tools</li>
+      <li>🔬 Research & Knowledge — Academic resources, wikis, archives</li>
+      <li>💻 Developer Tools — Code tools, APIs, utilities for developers</li>
+      <li>🎨 Design & Creative Tools — Design software, mockup tools, assets</li>
+      <li>🎮 Gaming — Online games, gaming utilities, emulators</li>
+      <li>🎬 Entertainment — Streaming, anime, media platforms</li>
+      <li>💪 Fitness — Workout planners, health trackers</li>
+      <li>⚡ Productivity — Task managers, notes, automation tools</li>
+      <li>🔧 Utilities — File tools, converters, online utilities</li>
+      <li>🧪 Science — Science simulators, interactive labs</li>
+      <li>🎵 Music — Music learning, creation, and streaming</li>
+      <li>🏠 Home Design — Floor planners, interior design tools</li>
+      <li>💼 Career & Freelancing — Job boards, freelance platforms</li>
+    </ul>
+    <h2>Features</h2>
+    <ul>
+      <li>✓ Global search across all websites</li>
+      <li>✓ Category and tag filtering</li>
+      <li>✓ Featured and trending discovery</li>
+      <li>✓ Save favorites in your browser</li>
+      <li>✓ Random website discovery</li>
+      <li>✓ Dark and light mode</li>
+      <li>✓ Fully responsive design</li>
+    </ul>
+    <h2>Contact</h2>
+    <p>Questions, suggestions, or want to submit a website? Reach us at <a href="mailto:zidaneankit@gmail.com">zidaneankit@gmail.com</a></p>
+  </div>
+</div>
+
+<!-- ===== SUBMIT PAGE ===== -->
+<div class="page" id="page-submit">
+  <div class="page-hero">
+    <h1 class="page-hero-title">📤 Submit a Website</h1>
+    <p class="page-hero-sub">Know a great website that should be in our directory? Tell us about it.</p>
+  </div>
+  <div class="submit-form">
+    <p>Fill in the details below and we'll review your submission. Email us at <a href="mailto:zidaneankit@gmail.com" style="color:var(--accent)">zidaneankit@gmail.com</a> for faster processing.</p>
+    <div class="form-group">
+      <label class="form-label" for="sub-name">Website Name *</label>
+      <input class="form-input" id="sub-name" type="text" placeholder="e.g. AwesomeTool">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="sub-url">URL *</label>
+      <input class="form-input" id="sub-url" type="url" placeholder="https://example.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="sub-desc">Description *</label>
+      <textarea class="form-input" id="sub-desc" placeholder="What does this website do? (50-200 chars)" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="sub-cat">Category *</label>
+      <select class="form-input" id="sub-cat">
+        <option value="">Select a category…</option>
+        <option>AI & Creativity</option>
+        <option>Learning & Education</option>
+        <option>Research & Knowledge</option>
+        <option>Developer Tools</option>
+        <option>Design & Creative Tools</option>
+        <option>Gaming</option>
+        <option>Entertainment</option>
+        <option>Fitness</option>
+        <option>Productivity</option>
+        <option>Utilities</option>
+        <option>Science</option>
+        <option>Music</option>
+        <option>Home Design</option>
+        <option>Career & Freelancing</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="sub-tags">Tags (comma separated)</label>
+      <input class="form-input" id="sub-tags" type="text" placeholder="e.g. ai, free, tools">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="sub-email">Your Email (optional)</label>
+      <input class="form-input" id="sub-email" type="email" placeholder="your@email.com">
+    </div>
+    <button class="btn-primary" onclick="submitWebsite()" style="margin-top:8px">📤 Submit Website</button>
+  </div>
+</div>
+
+<!-- ===== CONTACT PAGE ===== -->
+<div class="page" id="page-contact">
+  <div class="page-hero">
+    <h1 class="page-hero-title">✉️ Contact Us</h1>
+    <p class="page-hero-sub">Submit reviews, suggestions, or just say hello.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <h3>📬 Get in Touch</h3>
+      <p>Have a suggestion, found a broken link, or want to submit a review? We'd love to hear from you.</p>
+      <a class="contact-email" href="mailto:zidaneankit@gmail.com">
+        ✉️ zidaneankit@gmail.com
+      </a>
+      <p style="margin-top:20px;font-size:0.85rem;color:var(--text-muted)">We usually respond within 24–48 hours.</p>
+    </div>
+    <div class="contact-card">
+      <h3>💬 Send a Message</h3>
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input class="form-input" type="text" placeholder="Your name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-input" placeholder="Your message…" rows="4"></textarea>
+      </div>
+      <button class="btn-primary" onclick="showToast('Message sent! We\'ll get back to you soon. 💌')">Send Message</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PRIVACY PAGE ===== -->
+<div class="page" id="page-privacy">
+  <div class="page-hero"><h1 class="page-hero-title">🔒 Privacy Policy</h1></div>
+  <div class="prose-section">
+    <h2>What We Collect</h2>
+    <p>AnythingHub is a static directory that does not require account creation. We store your favorites locally in your browser's localStorage — this data never leaves your device.</p>
+    <h2>Analytics</h2>
+    <p>We may use privacy-respecting, cookie-free analytics to understand general traffic patterns. No personally identifiable information is collected.</p>
+    <h2>Third-Party Links</h2>
+    <p>All websites listed in our directory are third-party services. We are not responsible for their privacy practices. Please review each site's privacy policy before use.</p>
+    <h2>Cookies</h2>
+    <p>We use minimal cookies only for theme preference (dark/light mode). No tracking or advertising cookies are used.</p>
+    <h2>Contact</h2>
+    <p>For privacy concerns, contact <a href="mailto:zidaneankit@gmail.com">zidaneankit@gmail.com</a></p>
+    <p style="color:var(--text-muted);font-size:0.85rem">Last updated: June 2025</p>
+  </div>
+</div>
+
+<!-- ===== TERMS PAGE ===== -->
+<div class="page" id="page-terms">
+  <div class="page-hero"><h1 class="page-hero-title">📄 Terms of Service</h1></div>
+  <div class="prose-section">
+    <h2>Use of Service</h2>
+    <p>AnythingHub is a free public directory. By using this website, you agree to use it for lawful purposes only.</p>
+    <h2>Listings</h2>
+    <p>We strive to list only legitimate, useful websites. If you find a listing that is harmful or incorrect, please contact us immediately.</p>
+    <h2>Disclaimer</h2>
+    <p>AnythingHub does not endorse or take responsibility for the content, services, or security of listed third-party websites. Use them at your own discretion.</p>
+    <h2>Intellectual Property</h2>
+    <p>All content on AnythingHub (descriptions, design, code) is the property of AnythingHub unless otherwise noted.</p>
+    <h2>Changes</h2>
+    <p>We may update these terms at any time. Continued use of the site constitutes acceptance of the updated terms.</p>
+    <p style="color:var(--text-muted);font-size:0.85rem">Last updated: June 2025</p>
+  </div>
+</div>
+
+</main><!-- /main -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" onclick="showPage('home')" style="font-size:1.5rem">Anything<span>Hub</span></a>
+        <p>The ultimate public directory for discovering the best websites, tools, AI, games, and resources on the internet.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('featured')">Featured</a></li>
+          <li><a href="#" onclick="showPage('trending')">Trending</a></li>
+          <li><a href="#" onclick="showPage('recent')">Recently Added</a></li>
+          <li><a href="#" onclick="showPage('categories')">Categories</a></li>
+          <li><a href="#" onclick="showPage('search')">Search</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('submit')">Submit Website</a></li>
+          <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+          <li><a href="#" onclick="showPage('about')">About</a></li>
+          <li><a href="mailto:zidaneankit@gmail.com">Email Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('privacy')">Privacy Policy</a></li>
+          <li><a href="#" onclick="showPage('terms')">Terms of Service</a></li>
+        </ul>
+        <div style="margin-top:20px">
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:8px">Admin Access</p>
+          <button class="admin-btn" onclick="promptAdmin()" style="font-size:0.75rem;padding:5px 12px">🔑 Admin Login</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 AnythingHub · <a href="https://anything.onweb.com" style="color:var(--accent)">anything.onweb.com</a></p>
+      <p>Made with ♥ for the open web</p>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)" role="dialog" aria-modal="true" aria-label="Website details">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-icon" id="modalIcon"></div>
+      <div class="modal-title-block">
+        <div class="modal-name" id="modalName"></div>
+        <div class="modal-cat" id="modalCat"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-tags" id="modalTags"></div>
+      <div class="modal-meta">
+        <div class="modal-meta-item">
+          <div class="modal-meta-label">Rating</div>
+          <div class="modal-meta-value" id="modalRating"></div>
+        </div>
+        <div class="modal-meta-item">
+          <div class="modal-meta-label">Added</div>
+          <div class="modal-meta-value" id="modalDate"></div>
+        </div>
+        <div class="modal-meta-item">
+          <div class="modal-meta-label">Category</div>
+          <div class="modal-meta-value" id="modalCat2"></div>
+        </div>
+        <div class="modal-meta-item">
+          <div class="modal-meta-label">Status</div>
+          <div class="modal-meta-value" id="modalStatus"></div>
+        </div>
+      </div>
+      <div class="modal-rating-row">
+        <span style="font-size:0.85rem;color:var(--text-secondary);margin-right:4px">Rate this:</span>
+        <div class="stars" id="modalStars"></div>
+      </div>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+<script>
+/* ===== DATA ===== */
+const WEBSITES = [
+  {name:"AIXploria",url:"https://www.aixploria.com/en/",description:"A comprehensive directory of AI tools covering text, images, video, audio, and more — your go-to hub for discovering new artificial intelligence platforms.",category:"AI & Creativity",tags:["ai","directory","tools","discovery"],featured:true,rating:4.7,dateAdded:"2024-12-01"},
+  {name:"PhotoText",url:"https://phototext.shop/",description:"Convert images to text instantly using AI-powered OCR technology. Extract text from photos, screenshots, and documents with high accuracy.",category:"AI & Creativity",tags:["ai","ocr","image","text","converter"],featured:false,rating:4.2,dateAdded:"2024-12-05"},
+  {name:"IteraPlay",url:"https://iteraplay.com/",description:"An interactive AI-powered playground for iterating on creative prompts and ideas. Build, test, and refine your AI workflows visually.",category:"AI & Creativity",tags:["ai","playground","creative","prompts"],featured:false,rating:4.0,dateAdded:"2024-11-28"},
+  {name:"Emailnator",url:"https://www.emailnator.com/",description:"Generate disposable temporary email addresses instantly. Protect your privacy online with free throwaway inboxes that auto-expire.",category:"Utilities",tags:["email","temporary","privacy","disposable"],featured:false,rating:4.5,dateAdded:"2024-11-20"},
+  {name:"AllGPT",url:"https://allgpt.com/app/billing",description:"Access multiple GPT models and AI chat interfaces from a single unified platform. Compare responses and find the best AI for your task.",category:"AI & Creativity",tags:["ai","gpt","chatbot","aggregator"],featured:false,rating:4.1,dateAdded:"2024-12-10"},
+  {name:"VidBox",url:"https://vidbox.dev/",description:"A developer-friendly video toolbox for embedding, converting, and processing video files in the browser. No server required.",category:"Developer Tools",tags:["video","developer","tools","browser"],featured:false,rating:4.3,dateAdded:"2024-11-15"},
+  {name:"AnkerGames",url:"https://ankergames.net/",description:"A curated collection of fun, free browser games. Play action, puzzle, strategy, and adventure games right in your browser — no download needed.",category:"Gaming",tags:["games","browser","free","fun"],featured:false,rating:4.4,dateAdded:"2024-10-30"},
+  {name:"A Descargar",url:"https://adescargar.net/",description:"A Spanish-language platform offering free downloads of software, apps, and digital tools for Windows, Mac, and Android.",category:"Utilities",tags:["downloads","software","free","apps"],featured:false,rating:3.9,dateAdded:"2024-10-22"},
+  {name:"DorkGPT",url:"https://www.dorkgpt.com/",description:"Generate advanced Google search dork queries using AI. Find hidden pages, exposed files, and targeted information with precision search syntax.",category:"Research & Knowledge",tags:["search","google","dorks","research","ai"],featured:true,rating:4.6,dateAdded:"2024-12-08"},
+  {name:"PeoplePerHour",url:"https://www.peopleperhour.com/",description:"A freelance marketplace connecting businesses with expert designers, developers, writers, and marketers. Post projects or find work globally.",category:"Career & Freelancing",tags:["freelance","jobs","marketplace","remote"],featured:false,rating:4.3,dateAdded:"2024-09-15"},
+  {name:"Indeed",url:"https://www.indeed.com/",description:"The world's #1 job search engine. Search millions of jobs from thousands of job boards, newspapers, classifieds, and company websites.",category:"Career & Freelancing",tags:["jobs","career","employment","hiring"],featured:true,rating:4.6,dateAdded:"2024-08-01"},
+  {name:"Wethrift",url:"https://www.wethrift.com/",description:"Find the best coupon codes, promo deals, and discount offers across thousands of online stores. Save money on every online purchase.",category:"Utilities",tags:["coupons","deals","shopping","discounts"],featured:false,rating:4.2,dateAdded:"2024-09-10"},
+  {name:"MiniMax",url:"https://www.minimax.io/",description:"A powerful multimodal AI platform offering text generation, image creation, and video synthesis with state-of-the-art models.",category:"AI & Creativity",tags:["ai","multimodal","video","image","text"],featured:true,rating:4.7,dateAdded:"2024-12-12"},
+  {name:"Hailuo AI",url:"https://hailuoai.video/",description:"Generate stunning, realistic AI videos from text prompts and images. One of the most capable video generation platforms available.",category:"AI & Creativity",tags:["ai","video","generation","creative"],featured:true,rating:4.8,dateAdded:"2024-12-15"},
+  {name:"IT Tools",url:"https://it-tools.tech/",description:"A comprehensive collection of handy online tools for developers and IT professionals — encoders, formatters, generators, converters, and more.",category:"Developer Tools",tags:["tools","developer","utilities","encode","format"],featured:true,rating:4.9,dateAdded:"2024-11-01"},
+  {name:"AutoDraw",url:"https://autodraw.com/",description:"Google's AI drawing tool that turns rough sketches into clean illustrations by predicting what you're trying to draw in real time.",category:"Design & Creative Tools",tags:["drawing","ai","google","art","sketching"],featured:false,rating:4.4,dateAdded:"2024-10-05"},
+  {name:"GeoFS",url:"https://www.geo-fs.com/",description:"A free browser-based flight simulator with real satellite imagery. Fly anywhere in the world without installing anything.",category:"Gaming",tags:["flight","simulator","browser","free","3d"],featured:false,rating:4.5,dateAdded:"2024-09-25"},
+  {name:"Musicca",url:"https://www.musicca.com/",description:"Free music theory tools and ear training exercises. Practice scales, chords, intervals, and rhythm with interactive lessons.",category:"Music",tags:["music","theory","ear training","learn","free"],featured:false,rating:4.3,dateAdded:"2024-10-18"},
+  {name:"Perler Beads Designer",url:"https://perlerbeads.net/designer",description:"Design custom perler bead patterns online. Create pixel art templates that you can then recreate with physical craft beads.",category:"Design & Creative Tools",tags:["craft","pixel art","design","beads","diy"],featured:false,rating:4.1,dateAdded:"2024-11-05"},
+  {name:"Learn Anything",url:"https://learn-anything.xyz/",description:"An open-source knowledge graph for learning anything. Discover curated learning paths, resources, and communities for any skill or topic.",category:"Learning & Education",tags:["learning","knowledge","open source","paths","skills"],featured:true,rating:4.7,dateAdded:"2024-10-10"},
+  {name:"Electude Simulator",url:"https://simulator.electude.com/simulator",description:"Interactive automotive electrical simulator for mechanics and students. Practice troubleshooting electrical circuits virtually.",category:"Learning & Education",tags:["automotive","simulator","electrical","education","mechanic"],featured:false,rating:4.4,dateAdded:"2024-11-12"},
+  {name:"Bullrock Fitness",url:"https://bullrockfitness.com/",description:"A fitness platform offering structured workout programs, exercise guides, nutrition tips, and progress tracking for all fitness levels.",category:"Fitness",tags:["fitness","workout","health","programs","nutrition"],featured:false,rating:4.2,dateAdded:"2024-10-28"},
+  {name:"CroxyProxy",url:"https://www.croxyproxy.com/",description:"A free web proxy service that lets you browse websites anonymously and access geo-restricted content from any location.",category:"Utilities",tags:["proxy","vpn","privacy","anonymity","bypass"],featured:false,rating:4.0,dateAdded:"2024-09-08"},
+  {name:"QuenQ",url:"https://quenq.com/",description:"AI-powered Q&A and research assistant. Get accurate, sourced answers to complex questions across science, history, culture, and more.",category:"Research & Knowledge",tags:["ai","research","qa","answers","knowledge"],featured:false,rating:4.2,dateAdded:"2024-12-03"},
+  {name:"Gamma",url:"https://gamma.app/create/",description:"AI-powered presentation and document creator. Generate beautiful slides, docs, and webpages in seconds with just a text prompt.",category:"AI & Creativity",tags:["presentation","ai","slides","documents","design"],featured:true,rating:4.8,dateAdded:"2024-11-20"},
+  {name:"TextLab",url:"https://textlab.javii.tools/",description:"A collection of text manipulation tools for developers and writers. Transform, clean, convert, and analyze text with ease.",category:"Developer Tools",tags:["text","tools","developer","utilities","manipulate"],featured:false,rating:4.0,dateAdded:"2024-11-08"},
+  {name:"ModsNation",url:"https://www.modsnation.com/",description:"A community-driven platform for game mods. Discover, download, and share mods for popular games across all platforms.",category:"Gaming",tags:["mods","games","community","download","gaming"],featured:false,rating:4.3,dateAdded:"2024-10-14"},
+  {name:"LeoLabs Threat Assessment",url:"https://leolabs.space/threat-assessment/",description:"Real-time space debris and satellite collision threat assessment. Monitor objects in low Earth orbit and assess conjunction risks.",category:"Science",tags:["space","satellites","debris","science","real-time"],featured:true,rating:4.8,dateAdded:"2024-12-01"},
+  {name:"Coddy",url:"https://coddy.tech/",description:"Learn programming through interactive challenges and bite-sized coding exercises. Master languages like Python, JavaScript, and more.",category:"Learning & Education",tags:["coding","learn","programming","challenges","interactive"],featured:false,rating:4.5,dateAdded:"2024-11-15"},
+  {name:"JavaLab",url:"https://javalab.org/en/",description:"Interactive Java-based science and math simulations. Explore physics, chemistry, biology, and math through hands-on virtual experiments.",category:"Science",tags:["java","science","simulations","physics","math","education"],featured:false,rating:4.6,dateAdded:"2024-10-20"},
+  {name:"CADMapper",url:"https://cadmapper.com/",description:"Download ready-to-use CAD files for any city in the world. Generates 3D building models and site maps from OpenStreetMap data.",category:"Design & Creative Tools",tags:["cad","maps","3d","architecture","design"],featured:false,rating:4.4,dateAdded:"2024-09-28"},
+  {name:"The Toymaker",url:"https://www.thetoymaker.com/",description:"Free printable paper toy templates and craft patterns. Download, print, fold, and create charming paper characters and objects.",category:"Design & Creative Tools",tags:["paper","craft","toys","printable","diy"],featured:false,rating:4.1,dateAdded:"2024-10-06"},
+  {name:"Sci-Bot",url:"https://sci-bot.ru/",description:"An AI-powered scientific assistant that helps researchers find papers, summarize findings, and answer complex scientific questions.",category:"Research & Knowledge",tags:["science","ai","research","papers","bot"],featured:false,rating:4.0,dateAdded:"2024-11-22"},
+  {name:"Anna's Archive",url:"https://annas-archive.gl/",description:"The world's largest open-access library aggregator. Search and access millions of books, papers, and academic resources from multiple archives.",category:"Research & Knowledge",tags:["books","library","open access","research","archive"],featured:true,rating:4.9,dateAdded:"2024-09-01"},
+  {name:"Zotero",url:"https://www.zotero.org/",description:"A free, easy-to-use tool to collect, organize, annotate, cite, and share research. The gold standard for academic reference management.",category:"Research & Knowledge",tags:["research","citations","reference","academic","free"],featured:true,rating:4.9,dateAdded:"2024-08-15"},
+  {name:"WolframAlpha",url:"https://www.wolframalpha.com/",description:"The world's definitive source for expert-level computation. Answers complex math, science, nutrition, finance, history questions and more.",category:"Research & Knowledge",tags:["math","science","computation","knowledge","ai"],featured:true,rating:4.9,dateAdded:"2024-08-01"},
+  {name:"Fastweb",url:"https://www.fastweb.com/",description:"The largest scholarship search platform in the US. Find scholarships, grants, internships, and financial aid for students of all backgrounds.",category:"Learning & Education",tags:["scholarships","education","students","financial aid","grants"],featured:false,rating:4.5,dateAdded:"2024-09-20"},
+  {name:"FreeSewing",url:"https://freesewing.eu/",description:"Open-source sewing patterns for custom-fit garments. Generate patterns based on your exact measurements — completely free.",category:"Design & Creative Tools",tags:["sewing","patterns","fashion","diy","open source"],featured:false,rating:4.3,dateAdded:"2024-10-15"},
+  {name:"Coursera",url:"https://www.coursera.org/",description:"Online courses, certificates, and degrees from world-class universities and companies. Learn in-demand skills from Yale, Google, Meta, and more.",category:"Learning & Education",tags:["courses","university","certificates","online","learning"],featured:true,rating:4.8,dateAdded:"2024-08-01"},
+  {name:"Scribe",url:"https://scribe.com/",description:"Automatically generate step-by-step guides and SOPs from your screen recordings. Turn any process into shareable documentation instantly.",category:"Productivity",tags:["documentation","guides","productivity","sop","automation"],featured:true,rating:4.7,dateAdded:"2024-11-10"},
+  {name:"Hacksplaining",url:"https://www.hacksplaining.com/app/home",description:"Learn web security and ethical hacking through interactive lessons. Understand common vulnerabilities like XSS, SQL injection, and CSRF.",category:"Developer Tools",tags:["security","hacking","web","learning","developer"],featured:false,rating:4.6,dateAdded:"2024-10-25"},
+  {name:"FileCR",url:"https://filecr.com/home/",description:"Download software, apps, and digital tools for Windows, Mac, Android, and iOS. A large repository of free and premium software.",category:"Utilities",tags:["software","download","free","apps","windows"],featured:false,rating:3.8,dateAdded:"2024-09-12"},
+  {name:"Aptoide",url:"https://en.aptoide.com/",description:"An independent Android app store with millions of apps. Discover and install Android applications outside the Google Play ecosystem.",category:"Utilities",tags:["android","apps","store","download","alternative"],featured:false,rating:4.0,dateAdded:"2024-09-05"},
+  {name:"Old Games Download",url:"https://oldgamesdownload.com/",description:"Download classic retro PC games from the 1980s, 1990s, and 2000s for free. Revisit DOS games, early Windows titles, and nostalgic classics.",category:"Gaming",tags:["retro","games","classic","download","nostalgia"],featured:false,rating:4.4,dateAdded:"2024-10-02"},
+  {name:"Emergent",url:"https://app.emergent.sh/home",description:"AI-powered app builder that lets you create fully functional web applications through natural language descriptions. Code-free development.",category:"AI & Creativity",tags:["ai","app builder","no-code","development","web"],featured:false,rating:4.3,dateAdded:"2024-12-06"},
+  {name:"AutoAE",url:"https://autoae.online/",description:"Automate After Effects workflows using scripts and AI. Speed up motion graphics production with automated rendering and effects.",category:"Design & Creative Tools",tags:["after effects","motion","video","automation","design"],featured:false,rating:4.1,dateAdded:"2024-11-18"},
+  {name:"NeamX",url:"https://neamx.com/",description:"A productivity and project management tool for teams and individuals. Organize tasks, set goals, track progress with a clean interface.",category:"Productivity",tags:["productivity","tasks","project","management","team"],featured:false,rating:4.0,dateAdded:"2024-12-07"},
+  {name:"Muted",url:"https://muted.io/",description:"Interactive music theory reference tool. Explore chords, scales, note relationships, and progressions on an intuitive visual interface.",category:"Music",tags:["music","theory","chords","scales","interactive"],featured:true,rating:4.7,dateAdded:"2024-10-12"},
+  {name:"Darebee",url:"https://darebee.com/",description:"Free, ad-free fitness resource with hundreds of workout plans, challenges, and guides. Science-based training for all levels — no equipment needed.",category:"Fitness",tags:["fitness","workout","free","no equipment","health"],featured:true,rating:4.8,dateAdded:"2024-09-18"},
+  {name:"Lunchbox Sessions",url:"https://www.lunchboxsessions.com/explore/mobile",description:"Learn hydraulics, pneumatics, and industrial automation through interactive simulations. Professional technical training made visual.",category:"Learning & Education",tags:["hydraulics","automation","learning","industrial","simulation"],featured:false,rating:4.5,dateAdded:"2024-10-30"},
+  {name:"Cinegram",url:"https://cinegram.tv/home",description:"Discover films and TV shows with intelligent recommendations. Track what you've watched, get personalized suggestions, and explore cinema.",category:"Entertainment",tags:["movies","tv","recommendations","cinema","tracking"],featured:false,rating:4.2,dateAdded:"2024-11-25"},
+  {name:"Wotaku Wiki",url:"https://wotaku.wiki/",description:"A comprehensive wiki for anime, manga, and Japanese culture enthusiasts. Find resources, guides, databases, and community links all in one place.",category:"Entertainment",tags:["anime","manga","wiki","japan","community"],featured:false,rating:4.5,dateAdded:"2024-10-08"},
+  {name:"EverythingMoe",url:"https://everythingmoe.com/",description:"A curated directory of anime, manga, and weeb-culture websites and tools. Find streaming sites, fan resources, and community platforms.",category:"Entertainment",tags:["anime","manga","weeb","directory","community"],featured:false,rating:4.3,dateAdded:"2024-09-28"},
+  {name:"Hunyuan Video",url:"https://www.hunyuanvideo.org/",description:"Tencent's open-source AI video generation model. Create high-quality, consistent videos from text descriptions with impressive motion coherence.",category:"AI & Creativity",tags:["ai","video","generation","open source","tencent"],featured:true,rating:4.7,dateAdded:"2024-12-10"},
+  {name:"Tesana AI",url:"https://tesana.ai/en",description:"AI-powered document analysis and data extraction platform. Process contracts, invoices, reports, and PDFs with intelligent automation.",category:"AI & Creativity",tags:["ai","documents","extraction","automation","analysis"],featured:false,rating:4.3,dateAdded:"2024-12-02"},
+  {name:"Internet Archive",url:"https://archive.org/",description:"A non-profit digital library offering free access to millions of books, movies, music, software, and archived web pages through the Wayback Machine.",category:"Research & Knowledge",tags:["archive","library","wayback machine","history","free"],featured:true,rating:4.9,dateAdded:"2024-08-01"},
+  {name:"MyPerfectPDF",url:"https://myperfectpdf.com/",description:"Comprehensive online PDF toolkit. Merge, split, compress, convert, edit, and sign PDF files directly in your browser — free and fast.",category:"Utilities",tags:["pdf","tools","merge","convert","edit","free"],featured:false,rating:4.4,dateAdded:"2024-11-03"},
+  {name:"TinEye",url:"https://tineye.com/",description:"Reverse image search engine. Upload an image or paste a URL to find where it appears online, track its usage, or find higher-resolution versions.",category:"Research & Knowledge",tags:["reverse image","search","image","tracking","research"],featured:false,rating:4.5,dateAdded:"2024-09-22"},
+  {name:"10 Minute Mail",url:"https://10minutemail.com/",description:"Get a free temporary email address that lasts 10 minutes. Use it for sign-ups, trials, and anything you don't want in your real inbox.",category:"Utilities",tags:["email","temporary","privacy","disposable","10 min"],featured:false,rating:4.6,dateAdded:"2024-08-20"},
+  {name:"Photopea",url:"https://www.photopea.com/",description:"A powerful free browser-based photo editor supporting PSD, AI, XD, Sketch, and all major image formats. The best free Photoshop alternative.",category:"Design & Creative Tools",tags:["photo editor","photoshop","free","browser","design"],featured:true,rating:4.9,dateAdded:"2024-08-10"},
+  {name:"Blueprint",url:"https://blueprint.com/",description:"Project planning and blueprint management platform for architects, engineers, and construction professionals.",category:"Design & Creative Tools",tags:["architecture","blueprint","design","planning","construction"],featured:false,rating:4.1,dateAdded:"2024-11-28"},
+  {name:"3D Tuning",url:"https://www.3dtuning.com/",description:"Visualize and customize cars in stunning 3D. Apply real modifications, change colors, add wheels, and preview your dream car online.",category:"Entertainment",tags:["cars","3d","customization","tuning","automotive"],featured:false,rating:4.5,dateAdded:"2024-10-18"},
+  {name:"3D Chemistry Lab",url:"https://chemistry-en.nobook.com/console/templates/",description:"Virtual 3D chemistry laboratory for students and educators. Perform experiments, mix compounds, and observe reactions safely online.",category:"Science",tags:["chemistry","lab","3d","education","simulation"],featured:false,rating:4.4,dateAdded:"2024-11-05"},
+  {name:"HomeByMe",url:"https://home.by.me/en/",description:"Free 3D interior design tool for planning and visualizing your home. Draw floor plans, furnish rooms, and see your design in photo-realistic 3D.",category:"Home Design",tags:["interior design","3d","floor plan","home","free"],featured:true,rating:4.6,dateAdded:"2024-09-15"},
+  {name:"Floorplanner",url:"https://floorplanner.com/",description:"Intuitive online floor plan creator. Design rooms, add furniture, and get a bird's-eye view of your space with 2D and 3D visualization.",category:"Home Design",tags:["floor plan","interior design","home","2d","3d"],featured:false,rating:4.5,dateAdded:"2024-09-20"},
+  {name:"MotionBGS",url:"https://motionbgs.com/",description:"Free animated background videos and motion graphics for designers and content creators. Download live wallpapers and background loops.",category:"Design & Creative Tools",tags:["motion","background","animation","video","free"],featured:false,rating:4.2,dateAdded:"2024-10-28"},
+  {name:"Neal.fun",url:"https://neal.fun/",description:"A collection of delightful, quirky, and fascinating interactive web experiences. Spend time on the internet well with oddly satisfying mini-tools.",category:"Entertainment",tags:["fun","interactive","tools","quirky","web"],featured:true,rating:4.9,dateAdded:"2024-08-05"},
+  {name:"Planner5D",url:"https://planner5d.com/",description:"Full-featured home design and interior planning software. Create detailed floor plans and stunning 3D renders of any space.",category:"Home Design",tags:["home design","3d","floor plan","interior","planning"],featured:false,rating:4.6,dateAdded:"2024-09-25"},
+  {name:"WeebCentral",url:"https://weebcentral.com/",description:"A free manga reading platform with a large library of titles. Read manga online in high quality with a clean, ad-light interface.",category:"Entertainment",tags:["manga","reading","anime","free","library"],featured:false,rating:4.4,dateAdded:"2024-11-10"},
+  {name:"TinyWow",url:"https://tinywow.com/",description:"100+ free AI-powered online tools. Convert files, edit images, write text, generate PDFs, and much more — all for free, no signup.",category:"Utilities",tags:["tools","free","ai","converter","files","no signup"],featured:true,rating:4.8,dateAdded:"2024-10-01"},
+  {name:"Open Culture",url:"https://www.openculture.com/",description:"Free access to quality cultural and educational media. 1,700+ free online courses, 1,200+ free movies, 900+ free audiobooks from top universities.",category:"Learning & Education",tags:["courses","movies","audiobooks","free","culture","education"],featured:true,rating:4.8,dateAdded:"2024-08-18"},
+  {name:"Have I Been Pwned",url:"https://haveibeenpwned.com/",description:"Check if your email address or passwords have been exposed in known data breaches. Monitor your digital security and protect your accounts.",category:"Utilities",tags:["security","breach","privacy","password","check"],featured:true,rating:4.9,dateAdded:"2024-08-12"},
+  {name:"AlternativeTo",url:"https://alternativeto.net/software/youcam-video/about/",description:"Find the best alternatives to any software or app. Community-curated alternatives for paid, free, and open-source tools across all platforms.",category:"Utilities",tags:["alternatives","software","apps","comparison","open source"],featured:false,rating:4.7,dateAdded:"2024-09-05"},
+  {name:"AccountKiller",url:"https://www.accountkiller.com/en/home",description:"Guides for deleting accounts on hundreds of websites and apps. Reclaim your privacy and remove your digital footprint easily.",category:"Utilities",tags:["privacy","delete account","security","digital hygiene"],featured:false,rating:4.5,dateAdded:"2024-10-10"},
+  {name:"FMHY",url:"https://fmhy.net/",description:"The largest curated collection of free internet resources, tools, media, and websites. A massive community-maintained megathread of useful links.",category:"Research & Knowledge",tags:["directory","free","resources","community","mega"],featured:true,rating:4.9,dateAdded:"2024-08-01"}
+];
+
+const CATEGORIES = [
+  {name:"AI & Creativity",icon:"🤖",desc:"AI tools, generators, image creation, video synthesis, and creative AI platforms"},
+  {name:"Learning & Education",icon:"📚",desc:"Online courses, tutorials, scholarships, and educational tools"},
+  {name:"Research & Knowledge",icon:"🔬",desc:"Academic resources, search tools, archives, and knowledge bases"},
+  {name:"Developer Tools",icon:"💻",desc:"Code editors, APIs, testing utilities, and developer resources"},
+  {name:"Design & Creative Tools",icon:"🎨",desc:"Design software, mockup tools, assets, and creative platforms"},
+  {name:"Gaming",icon:"🎮",desc:"Browser games, game utilities, mods, and gaming platforms"},
+  {name:"Entertainment",icon:"🎬",desc:"Streaming, anime, manga, movies, and entertainment media"},
+  {name:"Fitness",icon:"💪",desc:"Workout planners, exercise guides, and health trackers"},
+  {name:"Productivity",icon:"⚡",desc:"Task managers, notes, automation, and productivity tools"},
+  {name:"Utilities",icon:"🔧",desc:"File converters, privacy tools, online utilities, and browser tools"},
+  {name:"Science",icon:"🧪",desc:"Science simulators, interactive labs, and STEM resources"},
+  {name:"Music",icon:"🎵",desc:"Music theory, ear training, creation tools, and streaming"},
+  {name:"Home Design",icon:"🏠",desc:"Floor planners, interior design tools, and home visualization"},
+  {name:"Career & Freelancing",icon:"💼",desc:"Job boards, freelance platforms, and career resources"}
+];
+
+const QUICK_ACCESS = [
+  {label:"🤖 AI",cat:"AI & Creativity"},
+  {label:"📚 Learning",cat:"Learning & Education"},
+  {label:"🔬 Research",cat:"Research & Knowledge"},
+  {label:"🎨 Design",cat:"Design & Creative Tools"},
+  {label:"🎮 Gaming",cat:"Gaming"},
+  {label:"⚡ Productivity",cat:"Productivity"},
+  {label:"🔧 Utilities",cat:"Utilities"},
+  {label:"💻 Dev Tools",cat:"Developer Tools"}
+];
+
+/* ===== STATE ===== */
+let favorites = JSON.parse(localStorage.getItem('ah_fav') || '[]');
+let currentSearch = '';
+let currentFilter = '';
+let isAdmin = false;
+
+/* ===== HELPERS ===== */
+function getDomain(url) {
+  try { return new URL(url).hostname.replace('www.',''); } catch(e) { return url; }
+}
+function getFavicon(url) {
+  const d = getDomain(url);
+  return `https://www.google.com/s2/favicons?sz=32&domain=${d}`;
+}
+function isFav(name) { return favorites.includes(name); }
+function toggleFav(name, e) {
+  if(e){ e.stopPropagation(); e.preventDefault(); }
+  if(isFav(name)) {
+    favorites = favorites.filter(f=>f!==name);
+    showToast(`Removed from favorites`);
+  } else {
+    favorites.push(name);
+    showToast(`Added to favorites ♥`);
+  }
+  localStorage.setItem('ah_fav', JSON.stringify(favorites));
+  rerenderFavButtons(name);
+}
+function rerenderFavButtons(name) {
+  document.querySelectorAll(`.btn-fav[data-name="${name}"]`).forEach(btn => {
+    btn.textContent = isFav(name) ? '♥' : '♡';
+    btn.style.color = isFav(name) ? '#f06060' : '';
+  });
+}
+function copyLink(url, e) {
+  if(e){ e.stopPropagation(); e.preventDefault(); }
+  navigator.clipboard.writeText(url).then(()=>showToast('Link copied! 📋')).catch(()=>showToast('Copy failed'));
+}
+function shareCard(name, url, e) {
+  if(e){ e.stopPropagation(); e.preventDefault(); }
+  if(navigator.share) {
+    navigator.share({title:name, url}).catch(()=>{});
+  } else {
+    copyLink(url, null);
+  }
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.innerHTML = '<span>✓</span> ' + msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ===== CARD BUILDER ===== */
+function buildCard(site, size='normal') {
+  const fav = isFav(site.name);
+  const stars = '★'.repeat(Math.floor(site.rating)) + (site.rating%1>=0.5?'½':'');
+  const isNew = (new Date() - new Date(site.dateAdded)) < 45*24*60*60*1000;
+  const tags = (site.tags||[]).slice(0,3).map(t=>`<span class="tag">${t}</span>`).join('');
+  const badge = site.featured ? `<div class="card-featured-badge">Featured</div>` : '';
+  const trendBadge = site.rating>=4.7 ? `<span class="trending-badge">🔥 Hot</span>` : '';
+  const newBadge = isNew ? `<span class="badge-new">New</span>` : '';
+
+  return `
+  <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="card${size==='featured'?' card-featured':''}" onclick="event.stopPropagation&&cardClick(event,'${site.name.replace(/'/g,"\\'")}')">
+    ${badge}
+    <div class="card-header">
+      <div class="card-icon">
+        <img src="${getFavicon(site.url)}" alt="${site.name}" loading="lazy" onerror="this.parentElement.textContent='🌐'">
+      </div>
+      <div class="card-meta">
+        <div class="card-name">${site.name} ${newBadge}</div>
+        <div class="card-category">${site.category}</div>
+      </div>
+      <button class="btn-fav" data-name="${site.name}" onclick="toggleFav('${site.name.replace(/'/g,"\\'")}',event)" aria-label="${fav?'Remove from':'Add to'} favorites">${fav?'♥':'♡'}</button>
+    </div>
+    <div class="card-desc">${site.description}</div>
+    <div class="card-footer">
+      <div class="card-tags">${tags} ${trendBadge}</div>
+      <div class="card-rating">★ ${site.rating}</div>
+    </div>
+    <div class="card-actions">
+      <button class="card-btn" onclick="copyLink('${site.url}',event)" title="Copy link">📋</button>
+      <button class="card-btn" onclick="shareCard('${site.name.replace(/'/g,"\\'")}','${site.url}',event)" title="Share">↗</button>
+      <button class="card-btn" onclick="openModal('${site.name.replace(/'/g,"\\'")}',event)" title="Details">ℹ</button>
+    </div>
+  </a>`;
+}
+
+function cardClick(e, name) {
+  // Allow default anchor behavior (opens link), modal only on info btn
+}
+
+/* ===== MODAL ===== */
+function openModal(name, e) {
+  if(e){ e.stopPropagation(); e.preventDefault(); }
+  const site = WEBSITES.find(s=>s.name===name);
+  if(!site) return;
+
+  document.getElementById('modalIcon').innerHTML = `<img src="${getFavicon(site.url)}" alt="${site.name}" onerror="this.parentElement.textContent='🌐'">`;
+  document.getElementById('modalName').textContent = site.name;
+  document.getElementById('modalCat').textContent = site.category;
+  document.getElementById('modalDesc').textContent = site.description;
+  document.getElementById('modalCat2').textContent = site.category;
+  document.getElementById('modalStatus').innerHTML = site.featured ? '<span style="color:var(--accent)">⭐ Featured</span>' : '<span style="color:var(--success)">✓ Active</span>';
+
+  const stars = Math.floor(site.rating);
+  document.getElementById('modalRating').innerHTML = '★'.repeat(stars) + `<span style="color:var(--text-muted)"> ${site.rating}/5</span>`;
+  document.getElementById('modalDate').textContent = new Date(site.dateAdded).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+
+  document.getElementById('modalTags').innerHTML = (site.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
+
+  const starsHtml = [1,2,3,4,5].map(i=>`<span class="star ${i<=stars?'filled':'empty'}" onclick="rateModal(${i},'${name.replace(/'/g,"\\'")}')">★</span>`).join('');
+  document.getElementById('modalStars').innerHTML = starsHtml;
+
+  const fav = isFav(name);
+  document.getElementById('modalActions').innerHTML = `
+    <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="btn-primary">🚀 Open Website</a>
+    <button class="btn-secondary" onclick="toggleFav('${name.replace(/'/g,"\\'")}',event)" data-name="${name}">${fav?'♥ Saved':'♡ Save'}</button>
+    <button class="btn-secondary" onclick="copyLink('${site.url}',null)">📋 Copy Link</button>
+  `;
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function rateModal(val, name) {
+  document.querySelectorAll('#modalStars .star').forEach((s,i)=>{
+    s.classList.toggle('filled', i<val);
+    s.classList.toggle('empty', i>=val);
+  });
+  showToast(`Rated ${val} stars for ${name}!`);
+}
+
+function closeModal(e) {
+  if(e && e.target !== document.getElementById('modalOverlay')) return;
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+/* ===== PAGE SYSTEM ===== */
+const PAGES = ['home','categories','category-detail','search','featured','trending','recent','favorites','about','submit','contact','privacy','terms'];
+function showPage(name) {
+  PAGES.forEach(p => {
+    const el = document.getElementById('page-'+p);
+    if(el) el.classList.toggle('active', p===name);
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.remove('active');
+    const nid = a.id.replace('nav-','');
+    if(nid===name) a.classList.add('active');
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(name==='favorites') renderFavorites();
+  if(name==='search') { renderSearchFilters(); doSearch(currentSearch); }
+  if(name==='featured') document.getElementById('featuredPageGrid').innerHTML = WEBSITES.filter(s=>s.featured).map(s=>buildCard(s,'featured')).join('');
+  if(name==='trending') document.getElementById('trendingPageGrid').innerHTML = [...WEBSITES].sort((a,b)=>b.rating-a.rating).slice(0,20).map(s=>buildCard(s)).join('');
+  if(name==='recent') document.getElementById('recentPageGrid').innerHTML = [...WEBSITES].sort((a,b)=>new Date(b.dateAdded)-new Date(a.dateAdded)).slice(0,24).map(s=>buildCard(s)).join('');
+  if(name==='categories') renderAllCategories();
+}
+
+/* ===== RENDER HOME ===== */
+function renderHome() {
+  const featured = WEBSITES.filter(s=>s.featured);
+  document.getElementById('featCount').textContent = `(${featured.length})`;
+  document.getElementById('statTotal').textContent = WEBSITES.length;
+  document.getElementById('statFeatured').textContent = featured.length;
+  document.getElementById('featuredGrid').innerHTML = featured.slice(0,6).map(s=>buildCard(s,'featured')).join('');
+  document.getElementById('trendingGrid').innerHTML = [...WEBSITES].sort((a,b)=>b.rating-a.rating).slice(0,8).map(s=>buildCard(s)).join('');
+  document.getElementById('recentGrid').innerHTML = [...WEBSITES].sort((a,b)=>new Date(b.dateAdded)-new Date(a.dateAdded)).slice(0,6).map(s=>buildCard(s)).join('');
+
+  // Quick access pills
+  document.getElementById('quickAccessPills').innerHTML = QUICK_ACCESS.map(q=>
+    `<button class="qa-pill" onclick="showCategoryDetail('${q.cat}')">${q.label}</button>`
+  ).join('');
+
+  // Category grid
+  document.getElementById('catGrid').innerHTML = CATEGORIES.map(cat=>{
+    const count = WEBSITES.filter(s=>s.category===cat.name).length;
+    return `<a href="#" class="cat-card" onclick="showCategoryDetail('${cat.name}')">
+      <div class="cat-icon">${cat.icon}</div>
+      <div class="cat-name">${cat.name}</div>
+      <div class="cat-count">${count} sites</div>
+    </a>`;
+  }).join('');
+}
+
+/* ===== CATEGORY DETAIL ===== */
+function showCategoryDetail(catName) {
+  const cat = CATEGORIES.find(c=>c.name===catName) || {name:catName,icon:'📂',desc:''};
+  document.getElementById('catDetailIcon').textContent = cat.icon;
+  document.getElementById('catDetailName').textContent = cat.name;
+  document.getElementById('catDetailDesc').textContent = cat.desc;
+  const sites = WEBSITES.filter(s=>s.category===catName);
+  document.getElementById('catDetailGrid').innerHTML = sites.map(s=>buildCard(s)).join('');
+  showPage('category-detail');
+}
+
+/* ===== ALL CATEGORIES ===== */
+function renderAllCategories() {
+  let html = '';
+  CATEGORIES.forEach(cat => {
+    const sites = WEBSITES.filter(s=>s.category===cat.name);
+    if(!sites.length) return;
+    html += `
+    <div style="margin-bottom:48px">
+      <div class="section-header" style="margin-bottom:16px">
+        <h2 class="section-title">${cat.icon} ${cat.name} <span>(${sites.length})</span></h2>
+        <a href="#" class="section-link" onclick="showCategoryDetail('${cat.name}')">View all →</a>
+      </div>
+      <div class="grid-4">${sites.slice(0,4).map(s=>buildCard(s)).join('')}</div>
+    </div>`;
+  });
+  document.getElementById('allCatsSection').innerHTML = html;
+}
+
+/* ===== SEARCH ===== */
+function renderSearchFilters() {
+  const chips = ['All',...CATEGORIES.map(c=>c.name)];
+  document.getElementById('filterRow').innerHTML = chips.map(c=>
+    `<button class="filter-chip${currentFilter===(c==='All'?'':c)?' active':''}" onclick="setFilter('${c==='All'?'':c}')">${c}</button>`
+  ).join('');
+}
+
+function setFilter(cat) {
+  currentFilter = cat;
+  renderSearchFilters();
+  doSearch(currentSearch);
+}
+
+function doSearch(q) {
+  currentSearch = q || '';
+  const term = currentSearch.toLowerCase().trim();
+  let results = WEBSITES;
+  if(currentFilter) results = results.filter(s=>s.category===currentFilter);
+  if(term) results = results.filter(s =>
+    s.name.toLowerCase().includes(term) ||
+    s.description.toLowerCase().includes(term) ||
+    (s.tags||[]).some(t=>t.toLowerCase().includes(term)) ||
+    s.category.toLowerCase().includes(term)
+  );
+  document.getElementById('searchCount').textContent = results.length + ' result' + (results.length!==1?'s':'') + (term?` for "${currentSearch}"`:'');
+  document.getElementById('searchGrid').innerHTML = results.map(s=>buildCard(s)).join('');
+  document.getElementById('noResults').style.display = results.length ? 'none' : 'block';
+  document.getElementById('searchGrid').style.display = results.length ? '' : 'none';
+}
+
+function quickSearch(val) {
+  const heroSearch = document.getElementById('heroSearch');
+  const navSearch = document.getElementById('navSearchInput');
+  const mainSearch = document.getElementById('mainSearch');
+  if(document.activeElement === navSearch || document.activeElement === document.getElementById('heroSearch')) {
+    if(mainSearch) mainSearch.value = val;
+  }
+}
+
+function goSearch() {
+  const heroVal = document.getElementById('heroSearch').value;
+  const navVal = document.getElementById('navSearchInput').value;
+  const q = heroVal || navVal || currentSearch;
+  if(q) {
+    currentSearch = q;
+    document.getElementById('mainSearch').value = q;
+  }
+  showPage('search');
+  doSearch(q);
+}
+
+/* ===== RANDOM ===== */
+function showRandom() {
+  const r = WEBSITES[Math.floor(Math.random()*WEBSITES.length)];
+  openModal(r.name, null);
+}
+
+/* ===== FAVORITES ===== */
+function renderFavorites() {
+  const faved = WEBSITES.filter(s=>isFav(s.name));
+  document.getElementById('favoritesGrid').innerHTML = faved.map(s=>buildCard(s)).join('');
+  document.getElementById('favEmpty').style.display = faved.length ? 'none' : 'block';
+  document.getElementById('favoritesGrid').style.display = faved.length ? '' : 'none';
+}
+
+/* ===== THEME ===== */
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  document.getElementById('themeToggle').textContent = next==='dark' ? '🌙' : '☀️';
+  localStorage.setItem('ah_theme', next);
+}
+(function(){
+  const t = localStorage.getItem('ah_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('themeToggle').textContent = t==='dark'?'🌙':'☀️';
+})();
+
+/* ===== MOBILE NAV ===== */
+function toggleMenu() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  const nav = document.getElementById('mobileNav');
+  const btn = document.getElementById('menuBtn');
+  if(nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) {
+    nav.classList.remove('open');
+  }
+});
+
+/* ===== SUBMIT ===== */
+function submitWebsite() {
+  const name = document.getElementById('sub-name').value.trim();
+  const url = document.getElementById('sub-url').value.trim();
+  const desc = document.getElementById('sub-desc').value.trim();
+  const cat = document.getElementById('sub-cat').value;
+  if(!name||!url||!desc||!cat) { showToast('⚠️ Please fill in all required fields'); return; }
+  showToast('✓ Submission received! We\'ll review it soon.');
+  ['sub-name','sub-url','sub-desc','sub-tags','sub-email'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('sub-cat').value='';
+}
+
+/* ===== ADMIN ===== */
+function promptAdmin() {
+  const pw = prompt('Enter admin password:');
+  if(pw === 'admin123') { isAdmin = true; document.getElementById('adminBar').classList.add('visible'); showToast('✓ Admin mode active'); }
+  else if(pw !== null) { showToast('⚠️ Incorrect password'); }
+}
+function logoutAdmin() { isAdmin = false; document.getElementById('adminBar').classList.remove('visible'); showToast('Admin logged out'); }
+
+/* ===== INIT ===== */
+renderHome();
+renderSearchFilters();
+</script>
+</body>
+</html>
